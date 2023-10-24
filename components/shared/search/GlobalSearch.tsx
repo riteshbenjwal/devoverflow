@@ -19,7 +19,7 @@ const GlobalSearch = () => {
         <Input
           type="text"
           placeholder="Search anything globally..."
-          value=""
+          // value=""
           className="paragraph-regular no-focus placeholder 
           background-light800_darkgradient border-none shadow-none"
         />

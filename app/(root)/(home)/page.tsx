@@ -6,8 +6,9 @@ import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
 import Link from "next/link";
+import { getQuestions } from "@/lib/actions/question.action";
 
-const questions = [
+const questions1 = [
   {
     _id: "1",
     title: "Cascading Deletes in SQLAlchemy?",
@@ -36,7 +37,8 @@ const questions = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const questions = await getQuestions({});
   return (
     <>
       <div
