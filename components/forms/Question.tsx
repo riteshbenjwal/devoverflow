@@ -19,6 +19,7 @@ import { QuestionsSchema } from "@/lib/validations";
 import { Button } from "@/components/ui/button";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import { createQuestion } from "@/lib/actions/question.action";
 
 const type: any = "create";
 
@@ -35,8 +36,10 @@ const Question = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
     setIsSubmitting(true);
+
+    await createQuestion({ ...values });
     try {
     } catch (error) {
     } finally {
@@ -119,6 +122,8 @@ const Question = () => {
                 <Editor
                   apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
                   onInit={(evt, editor) => (editorRef.current = editor)}
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => field.onChange(content)}
                   initialValue=""
                   init={{
                     height: 350,
@@ -140,6 +145,7 @@ const Question = () => {
                       "media",
                       "table",
                     ],
+
                     toolbar:
                       "undo redo | formatselect | " +
                       "codesample | bold italic backcolor | alignleft aligncenter " +
